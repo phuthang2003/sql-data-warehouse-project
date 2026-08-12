@@ -8,9 +8,9 @@ Purpose:
 	Each view performs transformation and combines data from Silver layer to produce a clean, business-ready data.
 */
 
-====================================================
+----------------------------------------------------
 -- CREATE DIMENSION: gold.dim_customers
-====================================================
+----------------------------------------------------
 IF OBJECT_ID('gold.dim_customers', 'V') IS NOT NULL
 	DROP VIEW gold.dim_customers;
 GO
@@ -39,9 +39,9 @@ IF OBJECT_ID('gold.dim_products', 'V') IS NOT NULL
 	DROP VIEW gold.dim_products;
 GO
 
-====================================================
+----------------------------------------------------
 -- CREATE DIMENSION: gold.dim_products
-====================================================
+----------------------------------------------------
 CREATE VIEW gold.dim_products AS
 SELECT
 	ROW_NUMBER() OVER (ORDER BY pn.prd_start_dt, pn.prd_key) AS product_key,
@@ -61,9 +61,9 @@ ON pn.cat_id = pc.id
 WHERE prd_end_dt IS NULL; -- Filter out all historical data
 GO
 
-====================================================
+----------------------------------------------------
 -- CREATE FACT: fact_sales
-====================================================
+----------------------------------------------------
 IF OBJECT_ID('gold.fact_sales', 'V') IS NOT NULL
 	DROP VIEW gold.fact_sales;
 GO
